@@ -1,16 +1,21 @@
 {
-  "name": "tongue",
+  "name": "house-cost",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack -d",
+    "watch": "webpack -d --watch"
   },
   "author": "nishiurahiroki@gmail.com",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^3.4.0",
+    "@material-ui/icons": "^3.0.1",
     "react": "^16.7.0-alpha.0",
-    "react-dom": "^16.7.0-alpha.0"
+    "react-dom": "^16.7.0-alpha.0",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.0",
