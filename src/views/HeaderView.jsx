@@ -1,6 +1,6 @@
-import React, { useReducer } from 'react'
+import React from 'react'
 
-import reducer from '../reducer'
+import { connect } from 'react-redux'
 
 import { withStyles } from '@material-ui/core/styles'
 
@@ -23,7 +23,7 @@ const styles = {
   }
 }
 
-const Header = props => {
+const HeaderView = props => {
   const { classes } = props
   return (
     <div className={classes.root}>
@@ -41,4 +41,7 @@ const Header = props => {
   )
 }
 
-export default withStyles(styles)(Header)
+export default connect(
+  ({title}) => ({title}),
+  {}
+)(withStyles(styles)(HeaderView))

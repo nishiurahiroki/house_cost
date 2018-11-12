@@ -1,12 +1,11 @@
-import React, { useEffect } from 'react'
+import React, {useEffect} from 'react'
 
-export default props => {
+import { connect } from 'react-redux'
+
+const HouseCostHistoriesView = props => {
   useEffect(() => {
-    props.dispatch({
-      type : 'ChangeTitle',
-      title : '家計簿履歴'
-    })
-  })
+    props.changeTitle('家計簿履歴')
+  }, [])
 
   return (
     <div onClick={() => {
@@ -16,3 +15,8 @@ export default props => {
     </div>
   )
 }
+
+export default connect(
+  () => ({}),
+  { changeTitle : title => ({ type : 'ChangeTitle', title}) }
+)(HouseCostHistoriesView)

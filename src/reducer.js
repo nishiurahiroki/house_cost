@@ -1,11 +1,12 @@
-const reducer = (state, action) => {
+const reducer = (state = {title : ''}, action) => {
   switch(action.type) {
     case 'ChangeTitle':
-      console.log(action.title);
       return {
         ...state,
         title : action.title
       }
+    default:
+      return state
   }
 }
 

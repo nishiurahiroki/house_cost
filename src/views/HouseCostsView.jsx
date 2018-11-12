@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react'
+import React, {useEffect} from 'react'
+import { connect } from 'react-redux'
 
-export default props => {
+const HouseCostsView = props => {
   useEffect(() => {
-    props.dispatch({
-      type : 'ChangeTitle',
-      title : '家計簿一覧'
-    })
-  })
+    props.changeTitle('家計簿一覧')
+  }, [])
 
   return (
     <div onClick={() => {
@@ -16,3 +14,8 @@ export default props => {
     </div>
   )
 }
+
+export default connect(
+  () => ({}),
+  { changeTitle : title => ({ type : 'ChangeTitle', title }) }
+)(HouseCostsView)
