@@ -7,6 +7,8 @@ import TextField from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
+import SaveIcon from '@material-ui/icons/Save'
+import Button from '@material-ui/core/Button'
 
 const CostInputView = props => {
   const today = new Date().toLocaleDateString().replace(/\//g , '-')
@@ -21,8 +23,8 @@ const CostInputView = props => {
     CostTypeRepository.getTypes().then(types => setCostTypes(types))
   }, [])
 
-  const formatNumber = e => {
-    const inputText = e.target.value.replace(/\,/g, '')
+  const formatAmount = e => {
+    const inputText = e.target.value.replace(/\,/g , '')
     if(!inputText) {
       setAmount('')
       return
@@ -35,7 +37,7 @@ const CostInputView = props => {
 
   return (
     <>
-      <div style={{ marginTop : '3vh' }}>
+      <div style={{ marginTop : '3vh', textAlign : 'center'  }}>
         <TextField
           id="date"
           label="日にち"
@@ -46,7 +48,7 @@ const CostInputView = props => {
         />
       </div>
 
-      <div style={{ marginTop : '3vh' }}>
+      <div style={{ marginTop : '3vh', textAlign : 'center'  }}>
         <TextField
           id="costTypes"
           select
@@ -60,7 +62,7 @@ const CostInputView = props => {
         </TextField>
       </div>
 
-      <div style={{ marginTop : '3vh' }}>
+      <div style={{ marginTop : '3vh', textAlign : 'center'  }}>
         <TextField
           id="amount"
           label="金額"
@@ -68,8 +70,17 @@ const CostInputView = props => {
           InputProps={{
             startAdornment: <InputAdornment position="start">￥</InputAdornment>
           }}
-          onChange={formatNumber}
+          onChange={formatAmount}
         />
+      </div>
+
+      <div style={{ marginTop : '5vh', textAlign : 'center' }}>
+        <Button
+          variant="contained"
+          color="primary"
+        >
+          <SaveIcon style={{ fontSize : '18', marginRight : '1vw' }}/>登録
+        </Button>
       </div>
 
     </>
