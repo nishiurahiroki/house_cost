@@ -5,16 +5,11 @@ import CostTypeRepository from '../repositories/CostTypeRepository'
 
 import TextField from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
-
-import Input from '@material-ui/core/Input'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
-import FormHelperText from '@material-ui/core/FormHelperText'
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
 
 const CostInputView = props => {
-  const today = new Date().toLocaleDateString().replace(/\//g, '-')
+  const today = new Date().toLocaleDateString().replace(/\//g , '-')
 
   const [inputDate, setInputDate] = useState(today)
   const [amount, setAmount] = useState('')
