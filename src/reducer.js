@@ -1,4 +1,6 @@
-const reducer = (state = {title : ''}, action) => {
+import initialState from './store'
+
+const reducer = (state = initialState, action) => {
   switch(action.type) {
     case 'ChangeTitle':
       return {

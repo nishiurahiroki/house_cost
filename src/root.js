@@ -5,8 +5,8 @@ import {Provider} from 'react-redux'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
 import LoginView from './views/LoginView.jsx'
-import HouseCostsView from './views/HouseCostsView.jsx'
-import HouseCostHistoriesView from './views/HouseCostHistoriesView.jsx'
+import CostInputView from './views/CostInputView.jsx'
+import CostAndIncomeHistoryView from './views/CostAndIncomeHistoryView.jsx'
 import HeaderView from './views/HeaderView.jsx'
 
 const Root = ({store}) => (
@@ -17,8 +17,8 @@ const Root = ({store}) => (
           <Route exact path="/" component={LoginView} />
           <Route component={HeaderView} />
         </Switch>
-        <Route path="/costs" component={HouseCostsView} />
-        <Route path="/costHistories" component={HouseCostHistoriesView} />
+        <Route path="/costInput" component={CostInputView} />
+        <Route path="/costAndIncomeHistoryView" component={CostAndIncomeHistoryView} />
       </>
     </BrowserRouter>
   </Provider>

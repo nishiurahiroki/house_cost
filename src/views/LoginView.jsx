@@ -13,9 +13,9 @@ export default props => {
     AuthManager.auth({
       id : mailAddress,
       password
-    }).then((resolve) => {
-      props.history.push('/costs')
-    }).catch(() => {
+    }).then(() => {
+      props.history.push('/costInput')
+    }).catch(e => {
       // TODO error handling.
     })
   }
