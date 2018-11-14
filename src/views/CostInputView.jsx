@@ -24,7 +24,6 @@ const CostInputView = props => {
   useEffect(() => {
     props.changeTitle('出費入力')
     CostTypeRepository.getTypes().then(types => setCostTypes(types))
-    console.log('ugoi')
   }, [])
 
   const formatNumber = e => {
