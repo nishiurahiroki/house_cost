@@ -2,6 +2,7 @@ import React, {useState ,useEffect} from 'react'
 import { connect } from 'react-redux'
 
 import CostTypeRepository from '../repositories/CostTypeRepository'
+import CostRepository from '../repositories/CostRepository'
 
 import TextField from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
@@ -33,6 +34,14 @@ const CostInputView = props => {
     if(isFinite(inputText)) {
       setAmount(Number(inputText).toLocaleString())
     }
+  }
+
+  const save = async () => {
+    const saveCount = await CostRepository.save({
+      date : inputDate,
+      amount,
+      costId
+    })
   }
 
   return (
@@ -78,6 +87,7 @@ const CostInputView = props => {
         <Button
           variant="contained"
           color="primary"
+          onClick={save}
         >
           <SaveIcon style={{ fontSize : '18', marginRight : '1vw' }}/>登録
         </Button>
