@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useReducer, useState } from 'react'
 
 import { connect } from 'react-redux'
+
+import reducer from '../reducer'
+
+import menus from '../menus.jsx'
 
 import { withStyles } from '@material-ui/core/styles'
 
@@ -9,6 +13,14 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
+import Drawer from '@material-ui/core/Drawer'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListItemText from '@material-ui/core/ListItemText'
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+import Divider from '@material-ui/core/Divider'
 
 const styles = {
   root: {
@@ -20,23 +32,67 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20
+  },
+  drawer: {
+    width: 240,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: 240,
+  },
+  drawerHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0 8px',
+    justifyContent: 'flex-end'
   }
 }
 
-const HeaderView = props => {
-  const { classes } = props
+const Header = props => {
+  const { classes, title } = props
+
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+  const openDrawer = () => setIsDrawerOpen(true)
+  const closeDrawer = () => setIsDrawerOpen(false)
+
   return (
     <div className={classes.root}>
       <AppBar position="relative">
         <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
+          <IconButton onClick={openDrawer} className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            {props.title}
+            {title}
           </Typography>
         </Toolbar>
       </AppBar>
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="left"
+        open={isDrawerOpen}
+        classes={{ paper: classes.drawerPaper }}
+      >
+        <div className={classes.drawerHeader} onClick={closeDrawer}>
+          <IconButton onClick={closeDrawer}>
+            {isDrawerOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </div>
+        <Divider />
+        <List>
+          {menus.map(({name, path, icon}) => (
+            <ListItem button key={name} onClick={() => {
+              props.history.push(path)
+              closeDrawer()
+            }}>
+              <ListItemIcon>{icon}</ListItemIcon>
+              <ListItemText primary={name} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
     </div>
   )
 }
@@ -44,4 +100,4 @@ const HeaderView = props => {
 export default connect(
   ({title}) => ({title}),
   {}
-)(withStyles(styles)(HeaderView))
+)(withStyles(styles)(Header))

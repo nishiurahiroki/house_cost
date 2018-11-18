@@ -1,10 +1,10 @@
 import React, {useState ,useEffect} from 'react'
 import { connect } from 'react-redux'
 
-import CostTypeRepository from '../repositories/CostTypeRepository'
-import CostRepository from '../repositories/CostRepository'
-
 import InputAmount from '../components/InputAmount.jsx'
+
+import IncomeTypeRepository from '../repositories/IncomeTypeRepository'
+import IncomeRepository from '../repositories/IncomeRepository'
 
 import TextField from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
@@ -15,19 +15,19 @@ import Button from '@material-ui/core/Button'
 import Snackbar from '@material-ui/core/Snackbar'
 import Slide from '@material-ui/core/Slide'
 
-const CostInputView = props => {
+const IncomeInputView = props => {
   const today = new Date().toLocaleDateString().replace(/\//g , '-')
 
   const [inputDate, setInputDate] = useState(today)
   const [amount, setAmount] = useState('')
-  const [costTypes, setCostTypes] = useState([ { name : '読み込み中...', id : 'dummy' } ])
-  const [costId, setCostId] = useState('1')
+  const [incomeTypes, setIncomeTypes] = useState([ { name : '読み込み中...', id : 'dummy' } ])
+  const [incomeId, setIncomeId] = useState('1')
   const [isShowMessage, setIsShowMessage] = useState(false)
   const [messageText, showMessageText] = useState('')
 
   useEffect(() => {
-    props.changeTitle('出費入力')
-    CostTypeRepository.getTypes().then(types => setCostTypes(types))
+    props.changeTitle('収入入力')
+    IncomeTypeRepository.getTypes().then(types => setIncomeTypes(types))
   }, [])
 
   const showMessage = message => {
@@ -41,10 +41,10 @@ const CostInputView = props => {
   }
 
   const save = async () => {
-    const saveCount = await CostRepository.save({
+    const saveCount = await IncomeRepository.save({
       date : inputDate,
       amount,
-      costId
+      incomeId
     })
 
     if(saveCount === 1) {
@@ -70,11 +70,11 @@ const CostInputView = props => {
         <TextField
           id="costTypes"
           select
-          label="出費内容"
-          value={costId}
-          onChange={e => setCostId(e.target.value)}
+          label="収入内容"
+          value={incomeId}
+          onChange={e => setIncomeId(e.target.value)}
         >
-          {costTypes.map(({name, id}) =>
+          {incomeTypes.map(({name, id}) =>
             <MenuItem key={id} value={id}>{name}</MenuItem>
           )}
         </TextField>
@@ -107,9 +107,9 @@ const CostInputView = props => {
           horizontal : 'left'
         }}
         ContentProps={{
-          'aria-describedby': 'successMessage',
+          'aria-describedby': 'message-id',
         }}
-        message={<span id="successMessage">{messageText}</span>}
+        message={<span id="message-id">{messageText}</span>}
       />
 
     </>
@@ -119,4 +119,4 @@ const CostInputView = props => {
 export default connect(
   () => ({}),
   { changeTitle : title => ({ type : 'ChangeTitle', title }) }
-)(CostInputView)
+)(IncomeInputView)
