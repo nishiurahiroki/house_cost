@@ -7,6 +7,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         title : action.title
       }
+    case 'ShowCostAndIncomeList':
+      return {
+        ...state,
+        costAndIncomeList : action.costAndIncomeList
+      }
     default:
       return state
   }
