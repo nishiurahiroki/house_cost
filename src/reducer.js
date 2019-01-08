@@ -8,9 +8,14 @@ const reducer = (state = initialState, action) => {
         title : action.title
       }
     case 'ShowCostAndIncomeList':
+      let {costs, incomes} = action
+      costs = costs.map(cost => {
+        cost.isCost = true
+        return cost
+      })
       return {
         ...state,
-        costAndIncomeList : action.costAndIncomeList
+        costAndIncomeList : [...costs, ...incomes]
       }
     default:
       return state

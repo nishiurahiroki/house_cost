@@ -111,7 +111,6 @@ const IncomeInputView = props => {
         }}
         message={<span id="message-id">{messageText}</span>}
       />
-
     </>
   )
 }

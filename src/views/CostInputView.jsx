@@ -111,7 +111,6 @@ const CostInputView = props => {
         }}
         message={<span id="successMessage">{messageText}</span>}
       />
-
     </>
   )
 }

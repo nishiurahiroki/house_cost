@@ -1,4 +1,6 @@
 export default {
   title : '',
-  costAndIncomeList : []
+  costAndIncomeList : [],
+  costs : [],
+  incomes : []
 }
