@@ -25,16 +25,16 @@ const alignCenter = {
 }
 
 const HouseCostHistoriesView = props => {
-  const [isLoading, setLoading] = useState(true)
+  const [isLoading, showLoading] = useState(true)
   const [isShowMessage, setIsShowMessage] = useState(false)
   const [messageText, showMessageText] = useState('')
 
   const showList = async () => {
-    setLoading(true)
+    showLoading(true)
     const costs = await CostRepository.getCosts({})
     const incomes = await IncomeRepository.getIncomes({})
     props.showList({costs, incomes})
-    setLoading(false)
+    showLoading(false)
   }
 
   useEffect(async () => {
