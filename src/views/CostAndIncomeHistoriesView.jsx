@@ -3,17 +3,7 @@ import React, {useEffect, useState} from 'react'
 import CostRepository from '../repositories/CostRepository'
 import IncomeRepository from '../repositories/IncomeRepository'
 
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import Divider from '@material-ui/core/Divider'
-import Avatar from '@material-ui/core/Avatar'
-import Typography from '@material-ui/core/Typography'
-import IconButton from '@material-ui/core/IconButton'
-
-import Add from '@material-ui/icons/Add'
-import Remove from '@material-ui/icons/Remove'
-import Cancel from '@material-ui/icons/Cancel'
+import CostAndIncomeList from '../components/CostAndIncomeList.jsx'
 
 import Snackbar from '@material-ui/core/Snackbar'
 import NowLoading from '@material-ui/core/CircularProgress';
@@ -52,13 +42,13 @@ const HouseCostHistoriesView = props => {
     showMessageText('')
   }
 
-  const deleteCostOrIncome = async ({isCost, deleteId}) => {
+  const deleteCostOrIncome = async ({isCost, id}) => {
     const deleteCount = await (async (isCost, deleteId) => {
       if(isCost) {
         return await CostRepository.delete(deleteId)
       }
       return await IncomeRepository.delete(deleteId)
-    })(isCost, deleteId)
+    })(isCost, id)
 
     if(deleteCount === 1) {
       showMessage('削除に成功しました')
@@ -68,33 +58,16 @@ const HouseCostHistoriesView = props => {
     }
   }
 
-  const CostAndIncomeList = () => <List>
-    {props.costAndIncomeList.map(({name, id, amount, isCost, date}, index) => (
-      <span key={index}>
-        <ListItem>
-          <Avatar>
-            {isCost ? <Remove /> : <Add />}
-          </Avatar>
-          <ListItemText secondary={name}>
-            <Typography color={isCost ? 'error' : 'primary'}>
-              ￥{Number(amount).toLocaleString()}　-　{date}
-            </Typography>
-          </ListItemText>
-          <IconButton onClick={() => deleteCostOrIncome({
-            isCost,
-            deleteId : id
-          })}>
-            <Cancel fontSize="inherit" color="error" />
-          </IconButton>
-        </ListItem>
-        <Divider inset />
-      </span>
-    ))}
-  </List>
-
   return (
     <div style={isLoading ? alignCenter : {}}>
-      {isLoading ? <NowLoading/> : <CostAndIncomeList/>}
+      {
+        isLoading ?
+          <NowLoading/> :
+          <CostAndIncomeList
+            list={props.costAndIncomeList}
+            onRowDeleteClick={({isCost, id}) => deleteCostOrIncome({isCost, id})}
+          />
+      }
 
       <Snackbar
         open={isShowMessage}
