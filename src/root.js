@@ -9,6 +9,7 @@ import CostInputView from './views/CostInputView.jsx'
 import IncomeInputView from './views/IncomeInputView.jsx'
 import CostAndIncomeHistoriesView from './views/CostAndIncomeHistoriesView.jsx'
 import HeaderView from './views/HeaderView.jsx'
+import AddUserView from './views/AddUserView.jsx'
 
 import ShowMessageContainer from './containers/ShowMessageContainer.jsx'
 
@@ -18,6 +19,7 @@ const Root = ({store}) => (
       <>
         <Switch>
           <Route exact path="/" component={LoginView} />
+          <Route exact path="/addUser" component={AddUserView} />
           <Route component={HeaderView} />
         </Switch>
         <Route path="/costInput" component={CostInputView} />

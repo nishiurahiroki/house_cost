@@ -12,4 +12,9 @@ export default class AuthManager {
   static isAliveAuthSession() {
     // TODO auth session alive status a bool.
   }
+
+  static async createUser({id, password}) {
+    // TODO do something.
+    return await Promise.resolve()
+  }
 }

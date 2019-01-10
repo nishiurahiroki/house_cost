@@ -1,50 +1,50 @@
 import React, {useState} from 'react'
 
+import AuthManager from '../utils/AuthManager'
+
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
-import PersonIcon from '@material-ui/icons/Person'
 import PersonAddIcon from '@material-ui/icons/PersonAdd'
 
-import AuthManager from '../utils/AuthManager'
+import { connect } from 'react-redux'
 
 const iconStyle = {
   marginRight : '0.5vw'
 }
 
-export default props => {
+const AddUserView = props => {
   const [mailAddress, setMailAddress] = useState('')
   const [password, setPassword] = useState('')
 
-  const login = () => {
-    AuthManager.auth({
+  const add = () => {
+    AuthManager.createUser({
       id : mailAddress,
       password
     }).then(() => {
-      props.history.push('/costInput')
-    }).catch(e => {
-      // TODO error handling.
+      props.showMessage('ユーザー新規登録に成功しました')
+      props.history.push('/')
+    }).catch(() => {
+      props.showMessage('ユーザー新規登録に失敗しました')
     })
   }
 
-  const move = viewName => props.history.push(`/${viewName}`)
-
   return (
-    <div style={{marginTop : '3vh', textAlign : 'center'}}>
-      <div>
+    <div style={{textAlign : 'center'}}>
+      <div style={{ marginTop : '3vh', textAlign : 'center'  }}>
         <TextField
-          id="mail-address"
+          id="mailAddress"
           label="メールアドレス"
           value={mailAddress}
           onChange={e => setMailAddress(e.target.value)}
         />
       </div>
 
-      <div>
+      <div style={{ textAlign : 'center'  }}>
         <TextField
           id="password"
-          label="パスワード"
           type="password"
+          label="パスワード"
           value={password}
           onChange={e => setPassword(e.target.value)}
         />
@@ -54,23 +54,19 @@ export default props => {
         <Button
           variant="contained"
           color="primary"
-          onClick={login}
-        >
-          <PersonIcon style={iconStyle} />
-          ログイン
-        </Button>
-      </div>
-
-      <div style={{marginTop : '10.5vh'}}>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => move('addUser')}
+          onClick={add}
         >
           <PersonAddIcon style={iconStyle} />
-          ユーザー新規登録
+          追加
         </Button>
       </div>
     </div>
   )
 }
+
+export default connect(
+  ({}) => ({}),
+  {
+    showMessage : messageText => ({type : 'ShowMessage', messageText})
+  }
+)(AddUserView)
