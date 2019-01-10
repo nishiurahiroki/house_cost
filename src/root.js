@@ -10,6 +10,8 @@ import IncomeInputView from './views/IncomeInputView.jsx'
 import CostAndIncomeHistoriesView from './views/CostAndIncomeHistoriesView.jsx'
 import HeaderView from './views/HeaderView.jsx'
 
+import ShowMessageContainer from './containers/ShowMessageContainer.jsx'
+
 const Root = ({store}) => (
   <Provider store={store}>
     <BrowserRouter>
@@ -21,6 +23,8 @@ const Root = ({store}) => (
         <Route path="/costInput" component={CostInputView} />
         <Route path="/incomeInput" component={IncomeInputView} />
         <Route path="/costAndIncomeHistories" component={CostAndIncomeHistoriesView} />
+
+        <ShowMessageContainer/>
       </>
     </BrowserRouter>
   </Provider>

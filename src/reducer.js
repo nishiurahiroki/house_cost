@@ -17,6 +17,18 @@ const reducer = (state = initialState, action) => {
         ...state,
         costAndIncomeList : [...costs, ...incomes]
       }
+    case 'ShowMessage' :
+      return {
+        ...state,
+        isShowMessage : true,
+        messageText : action.messageText
+      }
+    case 'HideMessage' :
+      return {
+        ...state,
+        isShowMessage : false,
+        messageText : ''
+      }
     default:
       return state
   }

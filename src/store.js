@@ -2,5 +2,7 @@ export default {
   title : '',
   costAndIncomeList : [],
   costs : [],
-  incomes : []
+  incomes : [],
+  isShowMessage : false,
+  messageText : ''
 }

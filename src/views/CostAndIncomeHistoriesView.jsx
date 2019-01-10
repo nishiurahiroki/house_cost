@@ -16,8 +16,6 @@ const alignCenter = {
 
 const HouseCostHistoriesView = props => {
   const [isLoading, showLoading] = useState(true)
-  const [isShowMessage, setIsShowMessage] = useState(false)
-  const [messageText, showMessageText] = useState('')
 
   const showList = async () => {
     showLoading(true)
@@ -32,16 +30,6 @@ const HouseCostHistoriesView = props => {
     await showList()
   }, [])
 
-  const showMessage = message => {
-    setIsShowMessage(true)
-    showMessageText(message)
-  }
-
-  const closeMessage = () => {
-    setIsShowMessage(false)
-    showMessageText('')
-  }
-
   const deleteCostOrIncome = async ({isCost, id}) => {
     const deleteCount = await (async (isCost, deleteId) => {
       if(isCost) {
@@ -51,10 +39,10 @@ const HouseCostHistoriesView = props => {
     })(isCost, id)
 
     if(deleteCount === 1) {
-      showMessage('削除に成功しました')
+      props.showMessage('削除に成功しました')
       await showList()
     } else {
-      showMessage('削除に失敗しました')
+      props.showMessage('削除に失敗しました')
     }
   }
 
@@ -68,19 +56,6 @@ const HouseCostHistoriesView = props => {
             onRowDeleteClick={({isCost, id}) => deleteCostOrIncome({isCost, id})}
           />
       }
-
-      <Snackbar
-        open={isShowMessage}
-        onClose={closeMessage}
-        anchorOrigin={{
-          vertical : 'bottom',
-          horizontal : 'left'
-        }}
-        ContentProps={{
-          'aria-describedby': 'successMessage',
-        }}
-        message={<span id="successMessage">{messageText}</span>}
-      />
     </div>
   )
 }
@@ -95,6 +70,7 @@ export default connect(
         costs,
         incomes
       }
-    )
+    ),
+    showMessage : messageText => ({ type : 'ShowMessage', messageText })
   }
 )(HouseCostHistoriesView)

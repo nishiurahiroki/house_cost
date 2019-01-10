@@ -12,7 +12,6 @@ import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import SaveIcon from '@material-ui/icons/Save'
 import Button from '@material-ui/core/Button'
-import Snackbar from '@material-ui/core/Snackbar'
 import Slide from '@material-ui/core/Slide'
 
 const CostInputView = props => {
@@ -22,23 +21,11 @@ const CostInputView = props => {
   const [amount, setAmount] = useState('')
   const [costTypes, setCostTypes] = useState([ { name : '読み込み中...', id : 'dummy' } ])
   const [costId, setCostId] = useState('1')
-  const [isShowMessage, setIsShowMessage] = useState(false)
-  const [messageText, showMessageText] = useState('')
 
   useEffect(() => {
     props.changeTitle('出費入力')
     CostTypeRepository.getTypes().then(types => setCostTypes(types))
   }, [])
-
-  const showMessage = message => {
-    setIsShowMessage(true)
-    showMessageText(message)
-  }
-
-  const closeMessage = () => {
-    setIsShowMessage(false)
-    showMessageText('')
-  }
 
   const save = async () => {
     const saveCount = await CostRepository.save({
@@ -48,7 +35,7 @@ const CostInputView = props => {
     })
 
     if(saveCount === 1) {
-      showMessage('登録しました')
+      props.showMessage('登録しました')
       setAmount('')
     }
   }
@@ -98,24 +85,14 @@ const CostInputView = props => {
           <SaveIcon style={{ fontSize : '18', marginRight : '1vw' }}/>登録
         </Button>
       </div>
-
-      <Snackbar
-        open={isShowMessage}
-        onClose={closeMessage}
-        anchorOrigin={{
-          vertical : 'bottom',
-          horizontal : 'left'
-        }}
-        ContentProps={{
-          'aria-describedby': 'successMessage',
-        }}
-        message={<span id="successMessage">{messageText}</span>}
-      />
     </>
   )
 }
 
 export default connect(
   () => ({}),
-  { changeTitle : title => ({ type : 'ChangeTitle', title }) }
+  {
+    changeTitle : title => ({ type : 'ChangeTitle', title }),
+    showMessage : messageText => ({ type : 'ShowMessage', messageText })
+  }
 )(CostInputView)
