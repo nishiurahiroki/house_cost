@@ -6,6 +6,8 @@ import reducer from '../reducer'
 
 import menus from '../menus.jsx'
 
+import AuthManager from '../utils/AuthManager'
+
 import { withStyles } from '@material-ui/core/styles'
 
 import AppBar from '@material-ui/core/AppBar'
@@ -13,6 +15,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
+import SubdirectoryArrowLeft from '@material-ui/icons/SubdirectoryArrowLeft'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -56,6 +59,21 @@ const Header = props => {
   const openDrawer = () => setIsDrawerOpen(true)
   const closeDrawer = () => setIsDrawerOpen(false)
 
+  const LogoutListItem = () => (
+    <ListItem button key="logout" onClick={() => {
+      AuthManager.authSignOut()
+        .then(() => {
+          props.history.push('/')
+        })
+        .catch(() => {
+          // TODO failer pattern.
+        })
+    }}>
+      <ListItemIcon><SubdirectoryArrowLeft /></ListItemIcon>
+      <ListItemText primary="ログアウト" />
+    </ListItem>
+  )
+
   return (
     <div className={classes.root}>
       <AppBar position="relative">
@@ -91,6 +109,7 @@ const Header = props => {
               <ListItemText primary={name} />
             </ListItem>
           ))}
+          <LogoutListItem />
         </List>
       </Drawer>
     </div>
