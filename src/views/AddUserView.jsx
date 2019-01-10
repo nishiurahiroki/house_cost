@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import AuthManager from '../utils/AuthManager'
+import AuthManager from '../auth/AuthManager'
 
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'

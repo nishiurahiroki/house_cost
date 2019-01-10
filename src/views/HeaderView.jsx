@@ -6,7 +6,7 @@ import reducer from '../reducer'
 
 import menus from '../menus.jsx'
 
-import AuthManager from '../utils/AuthManager'
+import AuthManager from '../auth/AuthManager'
 
 import { withStyles } from '@material-ui/core/styles'
 

@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 import PersonIcon from '@material-ui/icons/Person'
 import PersonAddIcon from '@material-ui/icons/PersonAdd'
 
-import AuthManager from '../utils/AuthManager'
+import AuthManager from '../auth/AuthManager'
 
 const iconStyle = {
   marginRight : '0.5vw'
