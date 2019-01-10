@@ -6,6 +6,8 @@ import InputAmount from '../components/InputAmount.jsx'
 import IncomeTypeRepository from '../repositories/IncomeTypeRepository'
 import IncomeRepository from '../repositories/IncomeRepository'
 
+import DateUtil from '../utils/DateUtil.js'
+
 import TextField from '@material-ui/core/TextField'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import InputLabel from '@material-ui/core/InputLabel'
@@ -15,9 +17,7 @@ import Button from '@material-ui/core/Button'
 import Slide from '@material-ui/core/Slide'
 
 const IncomeInputView = props => {
-  const today = new Date().toLocaleDateString().replace(/\//g , '-')
-
-  const [inputDate, setInputDate] = useState(today)
+  const [inputDate, setInputDate] = useState(DateUtil.getNowString({}))
   const [amount, setAmount] = useState('')
   const [incomeTypes, setIncomeTypes] = useState([ { name : '読み込み中...', id : 'dummy' } ])
   const [incomeId, setIncomeId] = useState('1')

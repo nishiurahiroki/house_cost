@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import CostTypeRepository from '../repositories/CostTypeRepository'
 import CostRepository from '../repositories/CostRepository'
 
+import DateUtil from '../utils/DateUtil.js'
+
 import InputAmount from '../components/InputAmount.jsx'
 
 import TextField from '@material-ui/core/TextField'
@@ -15,9 +17,7 @@ import Button from '@material-ui/core/Button'
 import Slide from '@material-ui/core/Slide'
 
 const CostInputView = props => {
-  const today = new Date().toLocaleDateString().replace(/\//g , '-')
-
-  const [inputDate, setInputDate] = useState(today)
+  const [inputDate, setInputDate] = useState(DateUtil.getNowString({}))
   const [amount, setAmount] = useState('')
   const [costTypes, setCostTypes] = useState([ { name : '読み込み中...', id : 'dummy' } ])
   const [costId, setCostId] = useState('1')
