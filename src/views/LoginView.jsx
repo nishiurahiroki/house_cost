@@ -16,18 +16,19 @@ export default props => {
   const [mailAddress, setMailAddress] = useState('')
   const [password, setPassword] = useState('')
 
+  const moveView = viewName => props.history.push(`/${viewName}`)
+
   const login = () => {
     AuthManager.auth({
       id : mailAddress,
       password
     }).then(() => {
-      props.history.push('/costInput')
+      moveView('costInput')
     }).catch(e => {
       // TODO error handling.
+      console.log(e)
     })
   }
-
-  const move = viewName => props.history.push(`/${viewName}`)
 
   return (
     <div style={{marginTop : '3vh', textAlign : 'center'}}>
@@ -65,7 +66,7 @@ export default props => {
         <Button
           variant="outlined"
           color="primary"
-          onClick={() => move('addUser')}
+          onClick={() => moveView('addUser')}
         >
           <PersonAddIcon style={iconStyle} />
           ユーザー新規登録
