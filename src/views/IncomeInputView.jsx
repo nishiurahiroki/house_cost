@@ -37,6 +37,8 @@ const IncomeInputView = props => {
     if(saveCount === 1) {
       props.showMessage('登録しました')
       setAmount('')
+    } else {
+      props.showMessage('登録に失敗しました')
     }
   }
 

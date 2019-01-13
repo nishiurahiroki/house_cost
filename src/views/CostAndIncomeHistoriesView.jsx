@@ -31,12 +31,9 @@ const HouseCostHistoriesView = props => {
   }, [])
 
   const deleteCostOrIncome = async ({isCost, id}) => {
-    const deleteCount = await (async (isCost, deleteId) => {
-      if(isCost) {
-        return await CostRepository.delete(deleteId)
-      }
-      return await IncomeRepository.delete(deleteId)
-    })(isCost, id)
+    const deleteCount = isCost ?
+      await   CostRepository.delete(deleteId) :
+      await IncomeRepository.delete(deleteId)
 
     if(deleteCount === 1) {
       props.showMessage('削除に成功しました')
