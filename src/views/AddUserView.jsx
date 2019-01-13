@@ -24,7 +24,7 @@ const AddUserView = props => {
     }).then(() => {
       props.showMessage('ユーザー新規登録に成功しました')
       props.history.push('/')
-    }).catch(() => {
+    }).catch(e => {
       props.showMessage('ユーザー新規登録に失敗しました')
     })
   }

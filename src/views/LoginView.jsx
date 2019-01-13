@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
 
+import { connect } from 'react-redux'
+
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 
@@ -12,7 +14,7 @@ const iconStyle = {
   marginRight : '0.5vw'
 }
 
-export default props => {
+const LoginView = props => {
   const [mailAddress, setMailAddress] = useState('')
   const [password, setPassword] = useState('')
 
@@ -26,7 +28,7 @@ export default props => {
       moveView('costInput')
     }).catch(e => {
       // TODO error handling.
-      console.log(e)
+      props.showMessage('ログインに失敗しました')
     })
   }
 
@@ -75,3 +77,10 @@ export default props => {
     </div>
   )
 }
+
+export default connect(
+  ({}) => ({}),
+  {
+    showMessage : messageText => ({ type : 'ShowMessage', messageText })
+  }
+)(LoginView)

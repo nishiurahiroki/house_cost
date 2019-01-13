@@ -1,20 +1,21 @@
+import firebaseInstance from '../firebase/firebaseInstance.js'
+
 export default class AuthManager {
   static async auth({id, password}) {
-    // TODO do something.
-    return await Promise.resolve()
+    return await firebaseInstance.auth().signInWithEmailAndPassword(id, password)
   }
 
   static async authSignOut() {
-    // TODO do something.
-    return await Promise.resolve()
+    return await firebaseInstance.auth().signOut()
   }
 
-  static isAliveAuthSession() {
-    // TODO auth session alive status a bool.
+  static async getActiveUserInfo() {
+    return new Promise((resolve, reject) => {
+      firebaseInstance.auth().onAuthStateChanged(user => resolve(user))
+    })
   }
 
   static async createUser({id, password}) {
-    // TODO do something.
-    return await Promise.resolve()
+    return await firebaseInstance.auth().createUserWithEmailAndPassword(id, password)
   }
 }
