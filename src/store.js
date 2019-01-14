@@ -4,5 +4,6 @@ export default {
   costs : [],
   incomes : [],
   isShowMessage : false,
-  messageText : ''
+  messageText : '',
+  activeAuthUserId : null
 }

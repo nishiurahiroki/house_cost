@@ -1,3 +1,5 @@
+import firebaseInstance from '../firebase/firebaseInstance.js'
+
 export default class IncomeTypeRepository {
   static async getTypes() {
     return await Promise.resolve([ // TODO dummy code.

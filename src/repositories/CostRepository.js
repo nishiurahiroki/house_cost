@@ -1,5 +1,7 @@
+import firebaseInstance from '../firebase/firebaseInstance.js'
+
 export default class CostRepository {
-  static async save({date, amont, costId}) {
+  static async save({date, amont, costId, addUserId}) {
     const saveCount = 1 // TODO dummy code
     return await Promise.resolve(saveCount)
   }

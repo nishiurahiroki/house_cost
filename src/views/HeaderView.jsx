@@ -61,13 +61,7 @@ const Header = props => {
 
   const LogoutListItem = () => (
     <ListItem button key="logout" onClick={() => {
-      AuthManager.authSignOut()
-        .then(() => {
-          props.history.push('/')
-        })
-        .catch(() => {
-          // TODO failer pattern.
-        })
+      AuthManager.authSignOut().then(() => props.history.push('/login'))
     }}>
       <ListItemIcon><SubdirectoryArrowLeft /></ListItemIcon>
       <ListItemText primary="ログアウト" />

@@ -1,3 +1,5 @@
+import firebaseInstance from '../firebase/firebaseInstance.js'
+
 export default class CostTypeRepository {
   static async getTypes() {
     return await Promise.resolve([

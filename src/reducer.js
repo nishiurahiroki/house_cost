@@ -29,6 +29,11 @@ const reducer = (state = initialState, action) => {
         isShowMessage : false,
         messageText : ''
       }
+    case 'SetActiveUserId' :
+      return {
+        ...state,
+        activeAuthUserId : action.activeAuthUserId
+      }
     default:
       return state
   }
