@@ -6,6 +6,8 @@ import { Route, Redirect } from 'react-router-dom'
 
 import AuthManager from '../auth/AuthManager'
 
+const formatNotEmail = (userId = '') => userId.replace(/\./g, '_')
+
 const AuthContainer = props => {
   const {
     component : Component,
@@ -14,7 +16,7 @@ const AuthContainer = props => {
 
   const authUserId = AuthManager.getActiveUserId()
   useEffect(() => {
-    setActiveUserId(authUserId)
+    setActiveUserId(formatNotEmail(authUserId))
   }, [])
 
   if(!authUserId) {

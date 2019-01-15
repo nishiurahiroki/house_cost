@@ -28,18 +28,18 @@ const CostInputView = props => {
   }, [])
 
   const save = async () => {
-    const saveCount = await CostRepository.save({
+    CostRepository.save({
       date : inputDate,
       amount,
-      costId
-    })
-
-    if(saveCount === 1) {
+      costId,
+      addUserId : props.activeAuthUserId
+    }).then(() => {
       props.showMessage('登録しました')
       setAmount('')
-    } else {
+    }).catch(e => {
+      console.log(e) // TODO Error handling.
       props.showMessage('登録に失敗しました')
-    }
+    })
   }
 
   return (
@@ -92,7 +92,7 @@ const CostInputView = props => {
 }
 
 export default connect(
-  () => ({}),
+  ({activeAuthUserId}) => ({activeAuthUserId}),
   {
     changeTitle : title => ({ type : 'ChangeTitle', title }),
     showMessage : messageText => ({ type : 'ShowMessage', messageText })
