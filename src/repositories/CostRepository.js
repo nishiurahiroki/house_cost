@@ -17,26 +17,12 @@ export default class CostRepository {
     return deleteCount
   }
 
-  static async getCosts({year = '', month = '', day = '', costId = ''}) {
-    return await Promise.resolve([ // TODO dummy code
-      {
-        name : '水道光熱費',
-        id : '2',
-        amount : 12332,
-        date : '2018/02/10 10:10'
-      },
-      {
-        name : '通信費',
-        id : '3',
-        amount : 3422,
-        date : '2018/02/10 10:10'
-      },
-      {
-        name : 'その他',
-        id : '12',
-        amount : 6700,
-        date : '2018/02/10 10:10'
-      }
-    ])
+  static async getCosts({year = '', month = '', day = '', costId = '', userId}) {
+    return await firebaseInstance
+      .database()
+      .ref(`costs/${userId}`)
+      .once('value')
+      .then(snapshot => snapshot.val())
+      .then(datas => Object.entries(datas).map(([key, value]) => ({key, ...value})))
   }
 }

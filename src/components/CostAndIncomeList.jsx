@@ -14,18 +14,18 @@ import Cancel from '@material-ui/icons/Cancel'
 
 export default ({list, onRowDeleteClick}) => (
   <List>
-    {list.map(({name, id, amount, isCost, date}, index) => (
-      <span key={index}>
+    {list.map(({name, id, amount, isCost, date, key}) => (
+      <span key={key}>
         <ListItem>
           <Avatar>
             {isCost ? <Remove /> : <Add />}
           </Avatar>
           <ListItemText secondary={name}>
             <Typography color={isCost ? 'error' : 'primary'}>
-              ￥{Number(amount).toLocaleString()}　-　{date}
+              ￥{amount}　-　{date.replace(/-/g, '/')}
             </Typography>
           </ListItemText>
-          <IconButton onClick={() => onRowDeleteClick({isCost, id})}>
+          <IconButton onClick={() => onRowDeleteClick({isCost, key})}>
             <Cancel fontSize="inherit" color="error" />
           </IconButton>
         </ListItem>

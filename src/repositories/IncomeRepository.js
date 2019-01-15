@@ -2,8 +2,14 @@ import firebaseInstance from '../firebase/firebaseInstance.js'
 
 export default class IncomeRepository {
   static async save({date, amount, incomeId, addUserId}) {
-    const saveCount = 1 // TODO dummy code
-    return await Promise.resolve(saveCount) // TODO dummy code
+    return await firebaseInstance
+      .database()
+      .ref(`incomes/${addUserId}`)
+      .push({
+        date,
+        amount,
+        id : incomeId
+      })
   }
 
   static async delete(incomeId) {
@@ -11,26 +17,12 @@ export default class IncomeRepository {
     return deleteCount
   }
 
-  static async getIncomes({}) {
-    return await Promise.resolve([ // TODO dummy code
-      {
-        name : '給与・報酬',
-        id : '1',
-        amount : 123456,
-        date : '2018/02/10 10:10'
-      },
-      {
-        name : '公的年金',
-        id : '3',
-        amount : 5900,
-        date : '2018/02/10 10:10'
-      },
-      {
-        name : 'その他収入',
-        id : '5',
-        amount : 13567,
-        date : '2018/02/10 10:10'
-      }
-    ])
+  static async getIncomes({year = '', month = '', day = '', incomeId = '', userId}) {
+    return await await firebaseInstance
+      .database()
+      .ref(`incomes/${userId}`)
+      .once('value')
+      .then(snapshot => snapshot.val())
+      .then(datas => Object.entries(datas).map(([key, value]) => ({key, ...value})))
   }
 }

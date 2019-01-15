@@ -28,18 +28,18 @@ const IncomeInputView = props => {
   }, [])
 
   const save = async () => {
-    const saveCount = await IncomeRepository.save({
+    IncomeRepository.save({
       date : inputDate,
       amount,
-      incomeId
-    })
-
-    if(saveCount === 1) {
+      incomeId,
+      addUserId : props.activeAuthUserId
+    }).then(() => {
       props.showMessage('登録しました')
       setAmount('')
-    } else {
+    }).catch(e => {
+      console.log(e) // TODO Error handling.
       props.showMessage('登録に失敗しました')
-    }
+    })
   }
 
   return (
@@ -92,7 +92,7 @@ const IncomeInputView = props => {
 }
 
 export default connect(
-  () => ({}),
+  ({activeAuthUserId}) => ({activeAuthUserId}),
   {
     changeTitle : title => ({ type : 'ChangeTitle', title }),
     showMessage : messageText => ({ type : 'ShowMessage', messageText })

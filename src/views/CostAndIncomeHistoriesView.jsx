@@ -19,8 +19,8 @@ const HouseCostHistoriesView = props => {
 
   const showList = async () => {
     showLoading(true)
-    const costs = await CostRepository.getCosts({})
-    const incomes = await IncomeRepository.getIncomes({})
+    const costs = await CostRepository.getCosts({ userId : props.activeAuthUserId })
+    const incomes = await IncomeRepository.getIncomes({ userId : props.activeAuthUserId })
     props.showList({costs, incomes})
     showLoading(false)
   }
@@ -30,10 +30,10 @@ const HouseCostHistoriesView = props => {
     await showList()
   }, [])
 
-  const deleteCostOrIncome = async ({isCost, id}) => {
+  const deleteCostOrIncome = async ({isCost, key}) => {
     const deleteCount = isCost ?
-      await   CostRepository.delete(deleteId) :
-      await IncomeRepository.delete(deleteId)
+      await   CostRepository.delete(key) :
+      await IncomeRepository.delete(key)
 
     if(deleteCount === 1) {
       props.showMessage('削除に成功しました')
@@ -58,7 +58,7 @@ const HouseCostHistoriesView = props => {
 }
 
 export default connect(
-  ({costAndIncomeList}) => ({costAndIncomeList}),
+  ({costAndIncomeList, activeAuthUserId}) => ({costAndIncomeList, activeAuthUserId}),
   {
     changeTitle : title => ({ type : 'ChangeTitle', title}),
     showList : ({costs, incomes}) => (
