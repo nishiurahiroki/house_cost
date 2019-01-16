@@ -12,9 +12,12 @@ export default class IncomeRepository {
       })
   }
 
-  static async delete(incomeId) {
-    const deleteCount = 1 // TODO dummy code
-    return deleteCount
+  static async delete(key, userId) {
+    return await firebaseInstance
+      .database()
+      .ref(`incomes/${userId}`)
+      .child(key)
+      .remove()
   }
 
   static async getIncomes({year = '', month = '', day = '', incomeId = '', userId}) {
@@ -22,7 +25,7 @@ export default class IncomeRepository {
       .database()
       .ref(`incomes/${userId}`)
       .once('value')
-      .then(snapshot => snapshot.val())
+      .then(snapshot => snapshot.val() ? snapshot.val() : [])
       .then(datas => Object.entries(datas).map(([key, value]) => ({key, ...value})))
   }
 }

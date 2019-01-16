@@ -31,16 +31,17 @@ const HouseCostHistoriesView = props => {
   }, [])
 
   const deleteCostOrIncome = async ({isCost, key}) => {
-    const deleteCount = isCost ?
-      await   CostRepository.delete(key) :
-      await IncomeRepository.delete(key)
+    const deletePromise = isCost ?
+      CostRepository.delete(key, props.activeAuthUserId) :
+      IncomeRepository.delete(key, props.activeAuthUserId);
 
-    if(deleteCount === 1) {
+    deletePromise.then(() => {
       props.showMessage('削除に成功しました')
-      await showList()
-    } else {
+      showList()
+    }).catch(e => {
+      console.log(e) // TODO Error handling.
       props.showMessage('削除に失敗しました')
-    }
+    })
   }
 
   return (
@@ -50,7 +51,7 @@ const HouseCostHistoriesView = props => {
           <NowLoading/> :
           <CostAndIncomeList
             list={props.costAndIncomeList}
-            onRowDeleteClick={({isCost, id}) => deleteCostOrIncome({isCost, id})}
+            onRowDeleteClick={({isCost, key}) => deleteCostOrIncome({isCost, key})}
           />
       }
     </div>

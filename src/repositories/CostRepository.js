@@ -12,9 +12,12 @@ export default class CostRepository {
       })
   }
 
-  static async delete(costId) {
-    const deleteCount = 1 // TODO dummy code
-    return deleteCount
+  static async delete(key, userId) {
+    return await firebaseInstance
+      .database()
+      .ref(`costs/${userId}`)
+      .child(key)
+      .remove()
   }
 
   static async getCosts({year = '', month = '', day = '', costId = '', userId}) {
@@ -22,7 +25,7 @@ export default class CostRepository {
       .database()
       .ref(`costs/${userId}`)
       .once('value')
-      .then(snapshot => snapshot.val())
+      .then(snapshot => snapshot.val() ? snapshot.val() : [])
       .then(datas => Object.entries(datas).map(([key, value]) => ({key, ...value})))
   }
 }
