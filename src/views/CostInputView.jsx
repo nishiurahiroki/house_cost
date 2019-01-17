@@ -19,12 +19,12 @@ import Slide from '@material-ui/core/Slide'
 const CostInputView = props => {
   const [inputDate, setInputDate] = useState(DateUtil.getNowString({}))
   const [amount, setAmount] = useState('')
-  const [costTypes, setCostTypes] = useState([ { name : '読み込み中...', id : 'dummy' } ])
+  const [costTypes, setCostTypes] = useState([ { name : '読み込み中...', id : 'dummy', key : 'dummyKey' } ])
   const [costId, setCostId] = useState('1')
 
-  useEffect(() => {
+  useEffect(async () => {
     props.changeTitle('出費入力')
-    CostTypeRepository.getTypes(props.activeAuthUserId).then(types => setCostTypes(types))
+    await CostTypeRepository.getTypes(props.activeAuthUserId).then(types => setCostTypes(types))
   }, [])
 
   const save = async () => {
@@ -63,8 +63,8 @@ const CostInputView = props => {
           value={costId}
           onChange={e => setCostId(e.target.value)}
         >
-          {costTypes.map(({name, id}) =>
-            <MenuItem key={id} value={id}>{name}</MenuItem>
+          {costTypes.map(({name, id, key}) =>
+            <MenuItem key={key} value={id}>{name}</MenuItem>
           )}
         </TextField>
       </div>

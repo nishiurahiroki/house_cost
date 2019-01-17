@@ -6,8 +6,6 @@ import { Route, Redirect } from 'react-router-dom'
 
 import AuthManager from '../auth/AuthManager'
 
-const replaceCanNotUseDelimiter = (userId = '') => userId.replace(/\./g, '_')
-
 const AuthContainer = props => {
   const {
     component : Component,
@@ -16,7 +14,7 @@ const AuthContainer = props => {
 
   const authUserId = AuthManager.getActiveUserId()
   useEffect(() => {
-    setActiveUserId(replaceCanNotUseDelimiter(authUserId))
+    setActiveUserId(authUserId)
   }, [])
 
   if(!authUserId) {

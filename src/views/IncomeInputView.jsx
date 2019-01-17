@@ -19,12 +19,12 @@ import Slide from '@material-ui/core/Slide'
 const IncomeInputView = props => {
   const [inputDate, setInputDate] = useState(DateUtil.getNowString({}))
   const [amount, setAmount] = useState('')
-  const [incomeTypes, setIncomeTypes] = useState([ { name : '読み込み中...', id : 'dummy' } ])
+  const [incomeTypes, setIncomeTypes] = useState([ { name : '読み込み中...', id : 'dummy', key : 'dummyKey' } ])
   const [incomeId, setIncomeId] = useState('1')
 
-  useEffect(() => {
+  useEffect(async () => {
     props.changeTitle('収入入力')
-    IncomeTypeRepository.getTypes(props.activeAuthUserId).then(types => setIncomeTypes(types))
+    await IncomeTypeRepository.getTypes(props.activeAuthUserId).then(types => setIncomeTypes(types))
   }, [])
 
   const save = async () => {
@@ -63,8 +63,8 @@ const IncomeInputView = props => {
           value={incomeId}
           onChange={e => setIncomeId(e.target.value)}
         >
-          {incomeTypes.map(({name, id}) =>
-            <MenuItem key={id} value={id}>{name}</MenuItem>
+          {incomeTypes.map(({name, id, key}) =>
+            <MenuItem key={key} value={id}>{name}</MenuItem>
           )}
         </TextField>
       </div>

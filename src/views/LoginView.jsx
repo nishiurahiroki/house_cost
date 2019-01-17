@@ -25,9 +25,11 @@ const LoginView = props => {
       id : mailAddress,
       password
     }).then(() => {
+      props.setActiveUserId(AuthManager.getActiveUserId())
       moveView('costInput')
     }).catch(e => {
       // TODO error handling.
+      console.log(e)
       props.showMessage('ログインに失敗しました')
     })
   }
@@ -81,6 +83,7 @@ const LoginView = props => {
 export default connect(
   ({}) => ({}),
   {
-    showMessage : messageText => ({ type : 'ShowMessage', messageText })
+    showMessage : messageText => ({ type : 'ShowMessage', messageText }),
+    setActiveUserId : activeAuthUserId => ({type : 'SetActiveUserId', activeAuthUserId})
   }
 )(LoginView)
