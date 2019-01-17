@@ -21,7 +21,7 @@ export default class IncomeRepository {
   }
 
   static async getIncomes({year = '', month = '', day = '', incomeId = '', userId}) {
-    return await await firebaseInstance
+    return await firebaseInstance
       .database()
       .ref(`incomes/${userId}`)
       .once('value')

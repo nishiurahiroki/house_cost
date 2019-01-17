@@ -24,7 +24,7 @@ const CostInputView = props => {
 
   useEffect(() => {
     props.changeTitle('出費入力')
-    CostTypeRepository.getTypes().then(types => setCostTypes(types))
+    CostTypeRepository.getTypes(props.activeAuthUserId).then(types => setCostTypes(types))
   }, [])
 
   const save = async () => {

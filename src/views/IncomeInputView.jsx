@@ -24,7 +24,7 @@ const IncomeInputView = props => {
 
   useEffect(() => {
     props.changeTitle('収入入力')
-    IncomeTypeRepository.getTypes().then(types => setIncomeTypes(types))
+    IncomeTypeRepository.getTypes(props.activeAuthUserId).then(types => setIncomeTypes(types))
   }, [])
 
   const save = async () => {
