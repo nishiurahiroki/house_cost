@@ -1,3 +1,5 @@
 dist
 node_modules
 src/firebase/firebaseConfig.js
+.firebaserc
+.firebase
