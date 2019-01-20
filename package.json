@@ -6,7 +6,7 @@
   "scripts": {
     "build:develop": "webpack -d --config webpack.config.development.js",
     "build:production": "webpack -d --config webpack.config.production.js --display-used-exports",
-    "deploy:production":"build:production && firebase deploy",
+    "deploy:production":"npm run build:production && firebase deploy",
     "develop": "webpack -d --config webpack.config.development.js --watch"
   },
   "author": "nishiurahiroki@gmail.com",
