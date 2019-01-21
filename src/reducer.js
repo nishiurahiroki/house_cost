@@ -8,14 +8,22 @@ const reducer = (state = initialState, action) => {
         title : action.title
       }
     case 'ShowCostAndIncomeList':
-      let {costs, incomes} = action
+      let {costs, incomes, orderBy = 'date', sort = 'desc'} = action
+
+      const sortList = {
+        asc : (a, b) => (a[orderBy] > b[orderBy] ? 1 : -1),
+        desc : (a, b) => (a[orderBy] < b[orderBy] ? 1 : -1)
+      }
+
       costs = costs.map(cost => {
         cost.isCost = true
         return cost
       })
+
+      const costAndIncomeList = [...costs, ...incomes].sort(sortList[sort])
       return {
         ...state,
-        costAndIncomeList : [...costs, ...incomes]
+        costAndIncomeList
       }
     case 'ShowMessage' :
       return {

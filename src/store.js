@@ -5,5 +5,7 @@ export default {
   incomes : [],
   isShowMessage : false,
   messageText : '',
-  activeAuthUserId : null
+  activeAuthUserId : null,
+  orderBy : '',
+  sort : 'desc'
 }
