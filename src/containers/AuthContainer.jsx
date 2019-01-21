@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 
 import { connect } from 'react-redux'
 
@@ -13,13 +13,11 @@ const AuthContainer = props => {
   } = props
 
   const authUserId = AuthManager.getActiveUserId()
-  useEffect(() => {
-    setActiveUserId(authUserId)
-  }, [])
-
   if(!authUserId) {
     return <Redirect to={'/login'} />
   }
+
+  setActiveUserId(authUserId)
   return <Component {...props} />
 }
 
