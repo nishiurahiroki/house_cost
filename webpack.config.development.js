@@ -1,3 +1,5 @@
+const path = require('path');
+
 const {confModule, entry, output, plugins} = require('./webpack.config.base.js')
 
 module.exports = {
@@ -5,5 +7,10 @@ module.exports = {
   entry,
   output,
   module: confModule,
-  plugins
+  plugins,
+  devServer: {
+    contentBase: path.resolve(__dirname, 'dist'),
+    watchContentBase: true,
+    port: 3000,
+  }
 }
