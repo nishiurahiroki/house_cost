@@ -18,13 +18,12 @@ const Root = ({store}) => (
   <Provider store={store}>
     <BrowserRouter>
       <>
-        <Route exact path="/" render={props => <Redirect to={'/costInput'} />} />
-
         <Switch>
           <Route path="/login" component={LoginView} />
           <Route exact path="/addUser" component={AddUserView} />
           <Route component={HeaderView} />
         </Switch>
+        <Route exact path="/" render={props => <AuthContainer {...props} component={CostInputView} />} />
         <Route path="/costInput" render={props => <AuthContainer {...props} component={CostInputView} />} />
         <Route path="/incomeInput" render={props => <AuthContainer {...props} component={IncomeInputView} />} />
         <Route path="/costAndIncomeHistories" render={props => <AuthContainer {...props} component={CostAndIncomeHistoriesView}/> } />
