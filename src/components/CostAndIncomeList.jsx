@@ -21,11 +21,11 @@ export default ({list, onRowDeleteClick}) => (
             {isCost ? <Remove /> : <Add />}
           </Avatar>
           <ListItemText secondary={name}>
-            <Typography color={isCost ? 'error' : 'primary'}>
+            <Typography name={isCost ? 'costText' : 'incomeText'} color={isCost ? 'error' : 'primary'}>
               ￥{amount}　-　{date.replace(/-/g, '/')}
             </Typography>
           </ListItemText>
-          <IconButton onClick={() => onRowDeleteClick({isCost, key})}>
+          <IconButton name="deleteButton" onClick={() => onRowDeleteClick({isCost, key})}>
             <Cancel fontSize="inherit" color="error" />
           </IconButton>
         </ListItem>
