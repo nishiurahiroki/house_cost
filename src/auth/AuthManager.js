@@ -1,8 +1,10 @@
 import firebaseInstance from '../firebase/firebaseInstance.js'
 
-const AUTH_USER_SESSION_KEY = `${document.domain}-user-info`
+const AUTH_USER_SESSION_KEY = `house-cost-user-info`
 
 const replaceCanNotUseDelimiter = (userId = '') => userId.replace(/\./g, '_')
+
+const localStorage = {}
 
 export default class AuthManager {
   static async auth({id, password}) {
